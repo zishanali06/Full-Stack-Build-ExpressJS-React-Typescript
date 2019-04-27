@@ -1,9 +1,8 @@
 import * as express from 'express';
+import apiRoutes from './api';
 
 const router = express.Router();
 
-router.get('/api/hello', (req, res, next) => {
-    res.json('World');
-});
+router.use('/api', apiRoutes);
 
 export default router;
