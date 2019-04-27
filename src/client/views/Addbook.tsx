@@ -3,44 +3,34 @@ import { json } from '../utils/api';
 import { RouteComponentProps } from 'react-router';
 import { Link } from 'react-router-dom';
 
-export interface EditbookProps extends RouteComponentProps<{ id: string }> {
+export interface AddbookProps extends RouteComponentProps<{ id: string }> {
 
 }
 
-export interface EditbookState {
-    book: {
-        id: number,
-        category: string,
-        title: string,
-        author: string,
-        price: any
-    },
+export interface AddbookState {
+    title: string,
+    author: string,
+    price: string,
     allcat: [],
     newcat: string
 }
 
-class Editbook extends React.Component<EditbookProps, EditbookState> {
-    constructor(props: EditbookProps) {
+class Addbook extends React.Component<AddbookProps, AddbookState> {
+    constructor(props: AddbookProps) {
         super(props);
         this.state = {
-            book: {
-                id: null,
-                category: null,
-                title: "",
-                author: "",
-                price: ""
-            },
+            title: '',
+            author: '',
+            price: '',
             allcat: [],
             newcat: ''
         };
     }
 
     async componentDidMount() {
-        let book = await json(`/api/books/${this.props.match.params.id}`);
         let allcat = await json(`/api/cat`);
-        let newcat = await json(`/api/cat/${this.props.match.params.id}`);
         console.log(allcat);
-        this.setState({ book, allcat, newcat });
+        this.setState({ allcat });
     }
 
     handleTag = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -52,13 +42,13 @@ class Editbook extends React.Component<EditbookProps, EditbookState> {
     handleAdd = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         let newbook = {
-            title: this.state.book.title,
-            author: this.state.book.author,
+            title: this.state.title,
+            author: this.state.author,
             categoryid: this.state.newcat,
-            price: this.state.book.price
+            price: this.state.price
         }
         try {
-            let data = await json(`/api/books/edit/${this.props.match.params.id}`, 'PUT', newbook);
+            let data = await json(`/api/books/add`, 'POST', newbook);
         } catch (error) {
             console.log(error);
         } finally {
@@ -82,8 +72,8 @@ class Editbook extends React.Component<EditbookProps, EditbookState> {
                             type="text"
                             className="form-control"
                             id="exampleFormControlInput1"
-                            value={this.state.book.title}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ ...this.state, book: {...this.state.book, title: e.target.value }})}
+                            value={this.state.title}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ title: e.target.value })}
                         />
                     </section>
                     <section className="form-group">
@@ -100,8 +90,8 @@ class Editbook extends React.Component<EditbookProps, EditbookState> {
                             type="text"
                             className="form-control"
                             id="exampleFormControlInput1"
-                            value={this.state.book.author}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ ...this.state, book: {...this.state.book, author: e.target.value }})}
+                            value={this.state.author}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ author: e.target.value })}
                         />
                     </section>
                     <section className="form-group">
@@ -110,17 +100,16 @@ class Editbook extends React.Component<EditbookProps, EditbookState> {
                             type="text"
                             className="form-control"
                             id="exampleFormControlInput1"
-                            value={this.state.book.price}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ ...this.state, book: {...this.state.book, price: e.target.value }})}
+                            value={this.state.price}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ price: e.target.value })}
                         />
                     </section>
-                    <button className="btn btn-primary" onClick={this.handleAdd}>Save Changes</button>
+                    <button className="btn btn-primary" onClick={this.handleAdd}>Add Book</button>
                 </form>
                 </section>
             </section>
-
         </>);
     }
 }
 
-export default Editbook;
+export default Addbook;

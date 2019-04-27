@@ -37,6 +37,17 @@ class Singlebook extends React.Component<SinglebookProps, SinglebookState> {
         this.setState({ book });
     }
 
+    handleDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        try {
+            await json(`/api/books/delete/${this.props.match.params.id}`, 'DELETE');
+        } catch (error) {
+            console.log(error);
+        } finally {
+            this.props.history.push('/books');
+        }
+
+    }
+
     render() {
         return (<>
             <section className="row">
@@ -49,6 +60,7 @@ class Singlebook extends React.Component<SinglebookProps, SinglebookState> {
                     <h3>Book Author: {this.state.book.author}</h3>
                     <h3>Book Price: {this.state.book.price}</h3>
                     <Link to={`/edit/${this.props.match.params.id}`} className="btn btn-primary">Edit</Link>
+                    <button className="btn btn-danger" onClick={this.handleDelete}>Delete</button>
                 </section>
             </section>
 

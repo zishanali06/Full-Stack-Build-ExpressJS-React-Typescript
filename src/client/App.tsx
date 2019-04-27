@@ -7,6 +7,7 @@ import Navbar from './components/Navbar';
 import Allbooks from './views/Allbooks';
 import Singlebook from './views/Singlebook';
 import Editbook from './views/Editbook';
+import Addbook from './views/Addbook';
 
 export default class App extends React.Component<IAppProps, IAppState> {
 
@@ -29,6 +30,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
                         <Route exact path="/books" component={Allbooks} />
                         <Route exact path="/books/:id" component={Singlebook} />
                         <Route exact path="/edit/:id" component={Editbook} />
+                        <Route exact path="/add" component={Addbook} />
                     </Switch>
                 </main>
             </Router>
