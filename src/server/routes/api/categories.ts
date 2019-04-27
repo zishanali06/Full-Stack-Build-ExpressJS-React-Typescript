@@ -8,7 +8,6 @@ router.get('/:id?', async (req, res, next) => {
     if(id){
         try {
             let [cat] = await knex('books').where('books.id', id).select('categories.id as id').join('categories', 'categories.id', '=', 'books.categoryid');
-            console.log(cat);
             res.json(cat.id);
         } catch (error) {
             console.log(error);
