@@ -5,6 +5,7 @@ import './scss/app';
 import Home from './views/Home';
 import Navbar from './components/Navbar';
 import Allbooks from './views/Allbooks';
+import Singlebook from './views/Singlebook';
 
 export default class App extends React.Component<IAppProps, IAppState> {
 
@@ -25,6 +26,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
                     <Switch>
                         <Route exact path="/" component={Home} />
                         <Route exact path="/books" component={Allbooks} />
+                        <Route exact path="/books/:id" component={Singlebook} />
                     </Switch>
                 </main>
             </Router>

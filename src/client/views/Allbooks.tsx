@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { json } from '../utils/api';
+import Bookcard from '../components/Bookcard';
 
 export interface AllbooksProps {
     
@@ -37,10 +38,10 @@ class Allbooks extends React.Component<AllbooksProps, AllbooksState> {
     render() { 
         return ( 
         <>
-            <section className="row d-flex justify-content-between">
-                <h1>Book Page</h1>
+            <section className="row d-flex justify-content-center">
+                <h1>All Books</h1>
             </section>
-            <section className="row d-flex justify-content-between">
+            <section className="row d-flex justify-content-center">
             {this.state.books.map((book) => {
                 return <Bookcard book={book} key={book.id} />
             })}
@@ -49,5 +50,5 @@ class Allbooks extends React.Component<AllbooksProps, AllbooksState> {
         );
     }
 }
- 
+
 export default Allbooks;
