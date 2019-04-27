@@ -34,7 +34,6 @@ class Singlebook extends React.Component<SinglebookProps, SinglebookState> {
     async componentDidMount() {
         try {
             let book = await json(`/api/books/${this.props.match.params.id}`);
-            console.log(book);
             this.setState({ book });
         } catch (error) {
             console.log(error);

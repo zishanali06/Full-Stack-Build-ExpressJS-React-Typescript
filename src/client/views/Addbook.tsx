@@ -22,7 +22,7 @@ class Addbook extends React.Component<AddbookProps, AddbookState> {
             author: '',
             price: '',
             allcat: [],
-            newcat: ''
+            newcat: '1'
         };
     }
 
@@ -32,7 +32,6 @@ class Addbook extends React.Component<AddbookProps, AddbookState> {
         } else {
             try {
                 let allcat = await json(`/api/cat`);
-                console.log(allcat);
                 this.setState({ allcat });
             } catch (error) {
                 console.log(error);

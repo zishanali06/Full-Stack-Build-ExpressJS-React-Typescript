@@ -43,7 +43,6 @@ class Editbook extends React.Component<EditbookProps, EditbookState> {
                 let book = await json(`/api/books/${this.props.match.params.id}`);
                 let allcat = await json(`/api/cat`);
                 let newcat = await json(`/api/cat/${this.props.match.params.id}`);
-                console.log(allcat);
                 this.setState({ book, allcat, newcat });
             } catch (error) {
                 console.log(error);

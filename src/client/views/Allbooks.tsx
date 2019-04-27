@@ -32,7 +32,6 @@ class Allbooks extends React.Component<AllbooksProps, AllbooksState> {
 
     async componentDidMount() {
         let books = await json('/api/books');
-        console.log(books);
         this.setState({ books });
     }
     render() { 
