@@ -1,6 +1,10 @@
 import * as React from 'react';
+import { BrowserRouter as Router, Switch, Link, Route } from 'react-router-dom';
 
 import './scss/app';
+import Home from './views/Home';
+import Navbar from './components/Navbar';
+import Allbooks from './views/Allbooks';
 
 export default class App extends React.Component<IAppProps, IAppState> {
 
@@ -13,12 +17,17 @@ export default class App extends React.Component<IAppProps, IAppState> {
 
     }
 
-    render () {
+    render() {
         return (
-            <main className="container">
-                <h1 className="covalence-blue">Hello</h1>
-                <h2></h2>
-            </main>
+            <Router>
+                <Navbar />
+                <main className="container">
+                    <Switch>
+                        <Route exact path="/" component={Home} />
+                        <Route exact path="/books" component={Allbooks} />
+                    </Switch>
+                </main>
+            </Router>
         )
     }
 }
