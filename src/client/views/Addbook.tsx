@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { json } from '../utils/api';
+import { json, User } from '../utils/api';
 import { RouteComponentProps } from 'react-router';
-import { Link } from 'react-router-dom';
 
 export interface AddbookProps extends RouteComponentProps<{ id: string }> {
 
@@ -28,9 +27,18 @@ class Addbook extends React.Component<AddbookProps, AddbookState> {
     }
 
     async componentDidMount() {
-        let allcat = await json(`/api/cat`);
-        console.log(allcat);
-        this.setState({ allcat });
+        if (!User || User.userid === null || User.role !== 'admin') {
+            this.props.history.push('/login');
+        } else {
+            try {
+                let allcat = await json(`/api/cat`);
+                console.log(allcat);
+                this.setState({ allcat });
+            } catch (error) {
+                console.log(error);
+            }
+
+        }
     }
 
     handleTag = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -56,7 +64,7 @@ class Addbook extends React.Component<AddbookProps, AddbookState> {
         };
     }
 
-    
+
 
     render() {
         return (<>
@@ -65,47 +73,47 @@ class Addbook extends React.Component<AddbookProps, AddbookState> {
             </section>
             <section className="row d-flex justify-content-center">
                 <section className="col-6">
-                <form>
-                    <section className="form-group">
-                        <label>Title</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="exampleFormControlInput1"
-                            value={this.state.title}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ title: e.target.value })}
-                        />
-                    </section>
-                    <section className="form-group">
-                        <label>Category</label>
-                        <select className="form-control" id="exampleFormControlSelect1" value={this.state.newcat} onChange={this.handleTag}>
-                            {this.state.allcat.map((cat: { category: string }, index) => {
-                                return <option value={index + 1} key={index}>{cat.category}</option>
-                            })}
-                        </select>
-                    </section>
-                    <section className="form-group">
-                        <label>Author</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="exampleFormControlInput1"
-                            value={this.state.author}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ author: e.target.value })}
-                        />
-                    </section>
-                    <section className="form-group">
-                        <label>Price: USD</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="exampleFormControlInput1"
-                            value={this.state.price}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ price: e.target.value })}
-                        />
-                    </section>
-                    <button className="btn btn-primary" onClick={this.handleAdd}>Add Book</button>
-                </form>
+                    <form>
+                        <section className="form-group">
+                            <label>Title</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="exampleFormControlInput1"
+                                value={this.state.title}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ title: e.target.value })}
+                            />
+                        </section>
+                        <section className="form-group">
+                            <label>Category</label>
+                            <select className="form-control" id="exampleFormControlSelect1" value={this.state.newcat} onChange={this.handleTag}>
+                                {this.state.allcat.map((cat: { category: string }, index) => {
+                                    return <option value={index + 1} key={index}>{cat.category}</option>
+                                })}
+                            </select>
+                        </section>
+                        <section className="form-group">
+                            <label>Author</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="exampleFormControlInput1"
+                                value={this.state.author}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ author: e.target.value })}
+                            />
+                        </section>
+                        <section className="form-group">
+                            <label>Price: USD</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="exampleFormControlInput1"
+                                value={this.state.price}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ price: e.target.value })}
+                            />
+                        </section>
+                        <button className="btn btn-primary" onClick={this.handleAdd}>Add Book</button>
+                    </form>
                 </section>
             </section>
         </>);

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { json } from '../utils/api';
+import { json, User } from '../utils/api';
 import { RouteComponentProps } from 'react-router';
 import { Link } from 'react-router-dom';
 
@@ -32,9 +32,13 @@ class Singlebook extends React.Component<SinglebookProps, SinglebookState> {
     }
 
     async componentDidMount() {
-        let book = await json(`/api/books/${this.props.match.params.id}`);
-        console.log(book);
-        this.setState({ book });
+        try {
+            let book = await json(`/api/books/${this.props.match.params.id}`);
+            console.log(book);
+            this.setState({ book });
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     handleDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {

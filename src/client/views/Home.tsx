@@ -24,7 +24,7 @@ class Home extends React.Component<HomeProps, HomeState> {
             <section className="row d-flex flex-column justify-content-center mt-5">
                 <Link to="/books" className="btn btn-primary mb-3">View Books</Link>
                 <button className="btn btn-primary mb-3">Register</button>
-                <button className="btn btn-primary mb-3">Login</button>
+                <Link to="/login" className="btn btn-primary mb-3">Login</Link>
             </section>
             </>
         );

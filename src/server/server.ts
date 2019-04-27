@@ -2,6 +2,8 @@ import * as path from 'path';
 import * as express from 'express';
 import Router from './routes';
 import * as passport from 'passport';
+import './middleware/bearerstrategy';
+import './middleware/localstrategy';
 
 const app = express();
 
