@@ -1,10 +1,12 @@
 import * as path from 'path';
 import * as express from 'express';
 import Router from './routes';
+import * as passport from 'passport';
 
 const app = express();
 
 app.use(express.json());
+app.use(passport.initialize());
 
 let p = path.join(__dirname, '../public');
 console.log(p);
