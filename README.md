@@ -1,0 +1,2 @@
+# Practicing Getting a Full Stack React Up With NodeJS Express Server and Typescript
+Getting the full build process down, timing to have done within 4 hours with full RESTAPI working and rendering data in the React App with proper routing and Authentification as well.
